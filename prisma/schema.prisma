@@ -24,13 +24,13 @@ model User {
 }
 
 model WorkoutPlan {
-  id        String   @id @default(uuid())
-  name      String
-  userId    String
-  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  isActive  Boolean  @default(true)
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  id            String       @id @default(uuid())
+  name          String
+  userId        String
+  user          User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+  isActive      Boolean      @default(true)
+  createdAt     DateTime     @default(now()) @db.Timestamptz()
+  updatedAt     DateTime     @updatedAt  @db.Timestamptz()
 
   workoutDays WorkoutDay[]
 }
@@ -53,6 +53,7 @@ model WorkoutDay {
   isRest                     Boolean     @default(false)
   weekDay                    WeekDay
   estimatedDurationInSeconds Int
+  coverImageUrl              String?
   createdAt                  DateTime    @default(now()) @db.Timestamptz()
   updatedAt                  DateTime    @updatedAt @db.Timestamptz()
 
