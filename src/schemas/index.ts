@@ -78,3 +78,21 @@ export const GetHomeDataResponseSchema = z.object({
         workoutDayStarted: z.boolean()
     }))
 })
+
+export const GetWorkoutPlanParamsSchema = z.object({
+    id: z.string().uuid()
+})
+
+export const GetWorkoutPlanResponseSchema = z.object({
+    id: z.string().uuid(),
+    name: z.string(),
+    workoutDays: z.array(z.object({
+        id: z.string().uuid(),
+        weekDay: z.enum(WeekDay),
+        name: z.string(),
+        isRest: z.boolean(),
+        coverImageUrl: z.string().url().optional(),
+        estimatedDurationInSeconds: z.number(),
+        exercisesCount: z.number()
+    }))
+})
