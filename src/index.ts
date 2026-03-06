@@ -9,6 +9,7 @@ import z from "zod";
 
 import { auth } from "./lib/auth.js";
 import { wourkoutPlanRoutes } from "./routes/workout-plan.js";
+import { homeRoutes } from "./routes/home.js";
 
 const app = Fastify({
     logger: true
@@ -58,6 +59,7 @@ await app.register(fastifyApiReference, {
 
 //Routes
 await app.register(wourkoutPlanRoutes, { prefix: "/workout-plans" })
+await app.register(homeRoutes, { prefix: "/home" })
 
 app.withTypeProvider<ZodTypeProvider>().route({
     method: 'GET',
