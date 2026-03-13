@@ -140,3 +140,29 @@ export const GetStatsResponseSchema = z.object({
     conclusionRate: z.number(),
     totalTimeInSeconds: z.number()
 })
+
+export const ListWorkoutPlansQuerySchema = z.object({
+    active: z.enum(['true', 'false']).optional().transform(val => val === undefined ? undefined : val === 'true')
+})
+
+export const ListWorkoutPlansResponseSchema = z.array(z.object({
+    id: z.string().uuid(),
+    name: z.string(),
+    isActive: z.boolean(),
+    workoutDays: z.array(z.object({
+        id: z.string().uuid(),
+        name: z.string(),
+        weekDay: z.enum(WeekDay),
+        isRest: z.boolean(),
+        coverImageUrl: z.string().url().optional(),
+        estimatedDurationInSeconds: z.number(),
+        exercises: z.array(z.object({
+            id: z.string().uuid(),
+            name: z.string(),
+            order: z.number(),
+            sets: z.number(),
+            reps: z.number(),
+            restTimeInSeconds: z.number()
+        }))
+    }))
+}))
